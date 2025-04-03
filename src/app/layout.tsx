@@ -46,7 +46,7 @@ export default function RootLayout({
           <nav className="bg-black border-b border-[#333] py-4">
             <div className="container mx-auto px-4">
               <div className="flex justify-between items-center">
-                <a href="/" className="text-xl font-bold hover:text-[#00ff00] transition-colors font-['Press_Start_2P']">
+                <a href="/" className="text-xl font-bold hover:text-[#ff69b4] transition-colors font-['Press_Start_2P']">
                   Compressionism
                 </a>
                 <div className="hidden md:flex items-center space-x-8">
