@@ -1,27 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+  --retro-bg: #0a0a0a;
+  --retro-text: #ffffff;
+  --retro-accent: #00ff00;
+  --retro-border: #333333;
+  --retro-glow: rgba(0, 255, 0, 0.1);
+  --foreground-rgb: 17, 17, 17;
+  --background-rgb: 249, 249, 246;
+  --bone: #f5f5f5;
+  --onyx: #1a1a1a;
+  --electric: #00ffff;
+  --graphite: #333333;
+  --fog: #e0e0e0;
+  --glitch: #ff00ff;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: rgb(var(--background-rgb));
+}
+
+@layer base {
+  h1 {
+    @apply text-4xl font-bold text-onyx;
+  }
+  h2 {
+    @apply text-3xl font-bold text-onyx;
+  }
+  h3 {
+    @apply text-2xl font-bold text-onyx;
+  }
+  p {
+    @apply text-graphite;
+  }
+  a {
+    @apply text-electric hover:text-glitch transition-colors duration-300;
+  }
+  button {
+    @apply bg-onyx text-bone py-2 px-4 rounded-lg hover:bg-electric transition-colors duration-300;
+  }
+  body {
+    @apply bg-[#0a0a0a] text-white font-mono;
+  }
+}
+
+@layer components {
+  .retro-container {
+    @apply relative;
+  }
+
+  .retro-scanlines {
+    @apply fixed inset-0 pointer-events-none opacity-10;
+    background-image: repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(255,255,255,0.1) 1px, rgba(255,255,255,0.1) 2px);
+    background-size: 100% 2px;
+  }
+
+  .retro-glow {
+    @apply fixed inset-0 pointer-events-none opacity-5;
+    background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.5) 100%);
+  }
+
+  .retro-nav {
+    @apply bg-black border-b border-[#333] py-4;
+  }
+
+  .retro-link {
+    @apply hover:text-[#00ff00] transition-colors;
+  }
+
+  .retro-button {
+    @apply px-4 py-2 border border-[#00ff00] text-[#00ff00] hover:bg-[#00ff00] hover:text-black transition-colors;
+  }
+
+  .retro-heading {
+    @apply font-['Press_Start_2P'] text-[#00ff00] tracking-wider;
+  }
+
+  .retro-text {
+    @apply font-['VT323'] text-white/90;
+  }
+
+  .retro-card {
+    @apply bg-black border border-[#333] p-4;
+  }
+
+  .retro-input {
+    @apply bg-black border border-[#333] text-white px-3 py-2 focus:outline-none focus:border-[#00ff00];
+  }
 } 

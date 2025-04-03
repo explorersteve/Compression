@@ -8,10 +8,13 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Add your brand colors here
-        primary: '#1a1a1a',
-        secondary: '#4a4a4a',
-        accent: '#ff6b6b',
+        // Brand Colors
+        'onyx': '#111111',        // Primary
+        'bone': '#F9F9F6',        // Secondary
+        'electric': '#00D1FF',    // Accent 1
+        'glitch': '#FF004D',      // Accent 2
+        'graphite': '#666666',    // Neutral
+        'fog': '#DDDDDD',         // Neutral
       },
     },
   },
