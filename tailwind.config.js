@@ -16,6 +16,12 @@ module.exports = {
         'graphite': '#666666',    // Neutral
         'fog': '#DDDDDD',         // Neutral
       },
+      keyframes: {
+        scanline: {
+          'from': { transform: 'translateX(-100%)' },
+          'to': { transform: 'translateX(100%)' }
+        }
+      }
     },
   },
   plugins: [],

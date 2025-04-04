@@ -5,16 +5,35 @@ import { useState, useEffect } from 'react'
 export default function EthPrice() {
   const [ethPrice, setEthPrice] = useState<string>('--')
   const [isLoading, setIsLoading] = useState(true)
+  const [retryCount, setRetryCount] = useState(0)
 
   useEffect(() => {
     const fetchEthPrice = async () => {
       try {
-        const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd')
+        const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd', {
+          headers: {
+            'Accept': 'application/json',
+            'Cache-Control': 'no-cache'
+          }
+        })
+        if (!response.ok) {
+          throw new Error('Network response was not ok')
+        }
         const data = await response.json()
-        setEthPrice(data.ethereum.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' }))
+        if (data?.ethereum?.usd) {
+          setEthPrice(data.ethereum.usd.toLocaleString('en-US', { 
+            style: 'currency', 
+            currency: 'USD',
+            maximumFractionDigits: 0
+          }))
+        }
       } catch (error) {
         console.error('Error fetching ETH price:', error)
-        setEthPrice('--')
+        if (retryCount < 3) {
+          setTimeout(() => {
+            setRetryCount(prev => prev + 1)
+          }, 1000 * (retryCount + 1))
+        }
       } finally {
         setIsLoading(false)
       }
@@ -24,20 +43,14 @@ export default function EthPrice() {
     const interval = setInterval(fetchEthPrice, 300000) // Update every 5 minutes
 
     return () => clearInterval(interval)
-  }, [])
+  }, [retryCount])
 
   return (
-    <div className="flex items-center gap-2">
-      <svg className="w-4 h-4 text-graphite" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z" fill="#627EEA"/>
-        <path d="M12.3735 3V9.6525L17.9963 12.165L12.3735 3Z" fill="white" fillOpacity="0.602"/>
-        <path d="M12.3735 3L6.75 12.165L12.3735 9.6525V3Z" fill="white"/>
-        <path d="M12.3735 16.476V20.9963L18 13.212L12.3735 16.476Z" fill="white" fillOpacity="0.602"/>
-        <path d="M12.3735 20.9963V16.4753L6.75 13.212L12.3735 20.9963Z" fill="white"/>
-        <path d="M12.3735 15.4298L17.9963 12.165L12.3735 9.654V15.4298Z" fill="white" fillOpacity="0.2"/>
-        <path d="M6.75 12.165L12.3735 15.4298V9.654L6.75 12.165Z" fill="white" fillOpacity="0.602"/>
+    <div className="flex items-center gap-2 text-[#00ff00] font-['VT323']">
+      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M11.944 17.97L4.58 13.62 11.943 24l7.37-10.38-7.372 4.35h.003zM12.056 0L4.69 12.223l7.365 4.354 7.365-4.35L12.056 0z"/>
       </svg>
-      <span className="text-electric">{isLoading ? '--' : ethPrice}</span>
+      <span className="font-medium">{isLoading ? '--' : ethPrice}</span>
     </div>
   )
 } 
