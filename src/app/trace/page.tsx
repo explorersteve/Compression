@@ -1,11 +1,13 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { ethers } from 'ethers'
 
 interface OwnerInfo {
   address: string
   tokenCount: number
   tokenIds: string[]
+  ensName?: string
 }
 
 export default function Trace() {
@@ -21,6 +23,9 @@ export default function Trace() {
   useEffect(() => {
     const fetchTokens = async () => {
       try {
+        // Create a provider using Alchemy
+        const provider = new ethers.JsonRpcProvider('https://eth-mainnet.g.alchemy.com/v2/pIJsemLjqv--j987X_zM9TbCfG1HW9AK')
+
         // First, get all NFTs from the contract
         const params = new URLSearchParams({
           contractAddress: stats.contractAddress,
@@ -69,10 +74,23 @@ export default function Trace() {
             const tokenId = parseInt(nft.id.tokenId, 16).toString()
 
             if (!ownerMap.has(owner)) {
+              // Try to resolve ENS name using ethers.js
+              let ensName: string | undefined = undefined
+              try {
+                const resolvedName = await provider.lookupAddress(owner)
+                if (resolvedName) {
+                  ensName = resolvedName
+                  console.log('Resolved ENS name:', ensName, 'for address:', owner)
+                }
+              } catch (err) {
+                console.error('Error resolving ENS:', err)
+              }
+
               ownerMap.set(owner, {
                 address: owner,
                 tokenCount: 0,
-                tokenIds: []
+                tokenIds: [],
+                ensName
               })
             }
 
@@ -206,7 +224,9 @@ export default function Trace() {
                 </div>
                 {owners.map((owner) => (
                   <div key={owner.address} className="grid grid-cols-2 gap-4 text-white/90 font-['VT323'] text-sm border-b border-[#00ff00]/20 pb-2">
-                    <div className="truncate">{owner.address}</div>
+                    <div className="truncate">
+                      {owner.ensName || owner.address}
+                    </div>
                     <div>{owner.tokenCount}</div>
                   </div>
                 ))}

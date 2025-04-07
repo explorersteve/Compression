@@ -48,7 +48,7 @@ export default function About() {
               </p>
               
               <p className="text-[#00ff00]/90 leading-relaxed">
-                This site is my way of documenting the moment. I'm tired of asking for permission, and writing essays no one reads. I'm minting, indexing, and distributing the work as it pop into my brain. This is about moving the space forward—own it, cherish it, and help me push it further.
+                This site is my way of documenting the moment. I&apos;m tired of asking for permission, and writing essays no one reads. I&apos;m minting, indexing, and distributing the work as it pop into my brain. This is about moving the space forward—own it, cherish it, and help me push it further.
               </p>
             </div>
           </div>
