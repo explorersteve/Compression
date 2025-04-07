@@ -50,14 +50,20 @@ export default function RootLayout({
                   Compressionism
                 </a>
                 <div className="hidden md:flex items-center space-x-8">
-                  <Link href="/" className="text-bone hover:text-electric transition-colors">
-                    Home
+                  <Link href="/" className="text-white/90 hover:text-[#00ff00] transition-colors font-['VT323'] text-xl">
+                    HOME
                   </Link>
-                  <Link href="/gallery" className="text-bone hover:text-electric transition-colors">
-                    Index
+                  <span className="text-white/50">|</span>
+                  <Link href="/index" className="text-white/90 hover:text-[#00ff00] transition-colors font-['VT323'] text-xl">
+                    INDEX
                   </Link>
-                  <Link href="/about" className="text-bone hover:text-electric transition-colors">
-                    About
+                  <span className="text-white/50">|</span>
+                  <Link href="/trace" className="text-white/90 hover:text-[#00ff00] transition-colors font-['VT323'] text-xl">
+                    TRACE
+                  </Link>
+                  <span className="text-white/50">|</span>
+                  <Link href="/about" className="text-white/90 hover:text-[#00ff00] transition-colors font-['VT323'] text-xl">
+                    ABOUT
                   </Link>
                   <div className="flex items-center gap-6">
                     <GasPrice />
