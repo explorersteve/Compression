@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 export default function About() {
   return (
@@ -12,22 +12,30 @@ export default function About() {
             style={{
               top: `${i * 5}%`,
               animationDelay: `${i * 0.1}s`,
-              opacity: Math.random() * 0.5 + 0.5
+              opacity: Math.random() * 0.5 + 0.5,
             }}
           />
         ))}
       </div>
 
       {/* Scan lines overlay */}
-      <div className="fixed inset-0 pointer-events-none opacity-10" style={{
-        backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(255,255,255,0.1) 1px, rgba(255,255,255,0.1) 2px)',
-        backgroundSize: '100% 2px'
-      }} />
-      
+      <div
+        className="fixed inset-0 pointer-events-none opacity-10"
+        style={{
+          backgroundImage:
+            'repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(255,255,255,0.1) 1px, rgba(255,255,255,0.1) 2px)',
+          backgroundSize: '100% 2px',
+        }}
+      />
+
       {/* CRT glow effect */}
-      <div className="fixed inset-0 pointer-events-none opacity-5" style={{
-        background: 'radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.5) 100%)'
-      }} />
+      <div
+        className="fixed inset-0 pointer-events-none opacity-5"
+        style={{
+          background:
+            'radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.5) 100%)',
+        }}
+      />
 
       <div className="relative z-10">
         {/* Header Section */}
@@ -44,16 +52,27 @@ export default function About() {
           <div className="bg-black/80 border border-[#00ff00]/20 p-8 backdrop-blur-sm">
             <div className="space-y-8 text-lg font-['VT323']">
               <p className="text-[#00ff00]/90 leading-relaxed">
-                Compressionism is an emergent digital art movement on the blockchain that embraces file compression as a medium. By intentionally reducing file size, artists highlight the artifacts, pixelation, distortion, and algorithms that emerge which lean into the constraints that blockchains provide. Compression occurs at many steps in the process and can vary by many degrees. My implementation is just one of many ways to work as a self-proclaimed compressionist.
+                Compressionism is an emergent digital art movement on the
+                blockchain that embraces file compression as a medium. By
+                intentionally reducing file size, artists highlight the
+                artifacts, pixelation, distortion, and algorithms that emerge
+                which lean into the constraints that blockchains provide.
+                Compression occurs at many steps in the process and can vary by
+                many degrees. My implementation is just one of many ways to work
+                as a self-proclaimed compressionist.
               </p>
-              
+
               <p className="text-[#00ff00]/90 leading-relaxed">
-                This site is my way of documenting the moment. I&apos;m tired of asking for permission, and writing essays no one reads. I&apos;m minting, indexing, and distributing the work as it pop into my brain. This is about moving the space forward—own it, cherish it, and help me push it further.
+                This site is my way of documenting the moment. I&apos;m tired of
+                asking for permission, and writing essays no one reads. I&apos;m
+                minting, indexing, and distributing the work as it pop into my
+                brain. This is about moving the space forward—own it, cherish
+                it, and help me push it further.
               </p>
             </div>
           </div>
         </section>
       </div>
     </div>
-  )
-} 
+  );
+}

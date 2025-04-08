@@ -56,13 +56,23 @@ body {
 
   .retro-scanlines {
     @apply fixed inset-0 pointer-events-none opacity-10;
-    background-image: repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(255,255,255,0.1) 1px, rgba(255,255,255,0.1) 2px);
+    background-image: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 1px,
+      rgba(255, 255, 255, 0.1) 1px,
+      rgba(255, 255, 255, 0.1) 2px
+    );
     background-size: 100% 2px;
   }
 
   .retro-glow {
     @apply fixed inset-0 pointer-events-none opacity-5;
-    background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.5) 100%);
+    background: radial-gradient(
+      circle at center,
+      transparent 0%,
+      rgba(0, 0, 0, 0.5) 100%
+    );
   }
 
   .retro-nav {
@@ -92,4 +102,4 @@ body {
   .retro-input {
     @apply bg-black border border-[#333] text-white px-3 py-2 focus:outline-none focus:border-[#00ff00];
   }
-} 
+}

@@ -1,30 +1,30 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import Image from 'next/image'
+import { useState } from 'react';
+import Image from 'next/image';
 
 interface Artwork {
-  id: string
-  title: string
-  image: string
-  tokenId: string
-  contract: string
-  status: string
-  dataSize: string
-  description: string
+  id: string;
+  title: string;
+  image: string;
+  tokenId: string;
+  contract: string;
+  status: string;
+  dataSize: string;
+  description: string;
 }
 
 interface Filters {
-  availability: string
-  dataSize: string
+  availability: string;
+  dataSize: string;
 }
 
 export default function Gallery() {
   const [filters, setFilters] = useState<Filters>({
     availability: 'all',
-    dataSize: 'all'
-  })
-  const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null)
+    dataSize: 'all',
+  });
+  const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null);
 
   // Mock data - replace with your actual data
   const artworks: Artwork[] = [
@@ -36,7 +36,8 @@ export default function Gallery() {
       contract: '0x1234...5678',
       status: 'Available',
       dataSize: 'small',
-      description: 'A unique digital artwork exploring the boundaries of compression.'
+      description:
+        'A unique digital artwork exploring the boundaries of compression.',
     },
     {
       id: '2',
@@ -46,7 +47,7 @@ export default function Gallery() {
       contract: '0x1234...5679',
       status: 'Available',
       dataSize: 'medium',
-      description: 'Exploring the intersection of digital and physical spaces.'
+      description: 'Exploring the intersection of digital and physical spaces.',
     },
     {
       id: '3',
@@ -56,32 +57,43 @@ export default function Gallery() {
       contract: '0x1234...5680',
       status: 'Sold',
       dataSize: 'large',
-      description: 'A study in digital minimalism and compression.'
-    }
-  ]
+      description: 'A study in digital minimalism and compression.',
+    },
+  ];
 
-  const filteredArtworks = artworks.filter(artwork => {
-    if (filters.availability !== 'all' && artwork.status.toLowerCase() !== filters.availability) {
-      return false
+  const filteredArtworks = artworks.filter((artwork) => {
+    if (
+      filters.availability !== 'all' &&
+      artwork.status.toLowerCase() !== filters.availability
+    ) {
+      return false;
     }
     if (filters.dataSize !== 'all' && artwork.dataSize !== filters.dataSize) {
-      return false
+      return false;
     }
-    return true
-  })
+    return true;
+  });
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white font-mono">
       {/* Scan lines overlay */}
-      <div className="fixed inset-0 pointer-events-none opacity-10" style={{
-        backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(255,255,255,0.1) 1px, rgba(255,255,255,0.1) 2px)',
-        backgroundSize: '100% 2px'
-      }} />
-      
+      <div
+        className="fixed inset-0 pointer-events-none opacity-10"
+        style={{
+          backgroundImage:
+            'repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(255,255,255,0.1) 1px, rgba(255,255,255,0.1) 2px)',
+          backgroundSize: '100% 2px',
+        }}
+      />
+
       {/* CRT glow effect */}
-      <div className="fixed inset-0 pointer-events-none opacity-5" style={{
-        background: 'radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.5) 100%)'
-      }} />
+      <div
+        className="fixed inset-0 pointer-events-none opacity-5"
+        style={{
+          background:
+            'radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.5) 100%)',
+        }}
+      />
 
       <div className="relative z-10">
         {/* Hero Section */}
@@ -104,7 +116,9 @@ export default function Gallery() {
         <div className="flex">
           {/* Fixed Filters Sidebar */}
           <div className="w-64 fixed left-0 h-[calc(100vh-20vh)] overflow-y-auto bg-[#0a0a0a] border-r border-[#00ff00]/20 p-6">
-            <h2 className="text-lg font-semibold text-[#00ff00] mb-6 font-['Press_Start_2P'] tracking-wider">FILTERS</h2>
+            <h2 className="text-lg font-semibold text-[#00ff00] mb-6 font-['Press_Start_2P'] tracking-wider">
+              FILTERS
+            </h2>
             <div className="space-y-6">
               <div>
                 <label className="block text-sm font-medium text-[#00ff00] mb-2">
@@ -113,7 +127,9 @@ export default function Gallery() {
                 <select
                   className="w-full bg-black/50 border border-[#00ff00] text-white rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#00ff00]"
                   value={filters.availability}
-                  onChange={(e) => setFilters({ ...filters, availability: e.target.value })}
+                  onChange={(e) =>
+                    setFilters({ ...filters, availability: e.target.value })
+                  }
                 >
                   <option value="all">All Status</option>
                   <option value="available">Available</option>
@@ -128,7 +144,9 @@ export default function Gallery() {
                 <select
                   className="w-full bg-black/50 border border-[#00ff00] text-white rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#00ff00]"
                   value={filters.dataSize}
-                  onChange={(e) => setFilters({ ...filters, dataSize: e.target.value })}
+                  onChange={(e) =>
+                    setFilters({ ...filters, dataSize: e.target.value })
+                  }
                 >
                   <option value="all">All Sizes</option>
                   <option value="small">Small</option>
@@ -159,19 +177,35 @@ export default function Gallery() {
                     {/* Hover Overlay */}
                     <div className="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center p-4">
                       <div className="text-center space-y-2">
-                        <p className="text-[#00ff00] font-['VT323']">Token ID: #{artwork.tokenId}</p>
-                        <p className="text-[#00ff00] font-['VT323']">Contract: {artwork.contract}</p>
-                        <p className="text-[#00ff00] font-['VT323']">Status: {artwork.status}</p>
+                        <p className="text-[#00ff00] font-['VT323']">
+                          Token ID: #{artwork.tokenId}
+                        </p>
+                        <p className="text-[#00ff00] font-['VT323']">
+                          Contract: {artwork.contract}
+                        </p>
+                        <p className="text-[#00ff00] font-['VT323']">
+                          Status: {artwork.status}
+                        </p>
                       </div>
                     </div>
                   </div>
                   <div className="p-4 space-y-1">
-                    <p className="font-bold text-[#00ff00] font-['Press_Start_2P'] text-sm">STEPHEN SANTORO</p>
-                    <p className="text-white/90 font-['VT323']">The Start of the New Age, 2025</p>
-                    <p className="text-white/70 font-['VT323'] text-sm">Photoshop and ChatGPT</p>
-                    <p className="text-white/70 font-['VT323'] text-sm">2,000 x 2,000</p>
+                    <p className="font-bold text-[#00ff00] font-['Press_Start_2P'] text-sm">
+                      STEPHEN SANTORO
+                    </p>
+                    <p className="text-white/90 font-['VT323']">
+                      The Start of the New Age, 2025
+                    </p>
+                    <p className="text-white/70 font-['VT323'] text-sm">
+                      Photoshop and ChatGPT
+                    </p>
+                    <p className="text-white/70 font-['VT323'] text-sm">
+                      2,000 x 2,000
+                    </p>
                     <p className="text-white/70 font-['VT323'] text-sm">10kb</p>
-                    <p className="text-white/70 font-['VT323'] text-sm">1.05 gwei</p>
+                    <p className="text-white/70 font-['VT323'] text-sm">
+                      1.05 gwei
+                    </p>
                   </div>
                 </div>
               ))}
@@ -188,8 +222,18 @@ export default function Gallery() {
               onClick={() => setSelectedArtwork(null)}
               className="absolute top-4 right-4 text-[#00ff00] hover:text-white transition-colors"
             >
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <svg
+                className="w-8 h-8"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -202,27 +246,35 @@ export default function Gallery() {
                 />
               </div>
               <div className="space-y-6">
-                <h2 className="text-3xl font-bold text-[#00ff00]">{selectedArtwork.title}</h2>
+                <h2 className="text-3xl font-bold text-[#00ff00]">
+                  {selectedArtwork.title}
+                </h2>
                 <div className="space-y-3">
                   <p className="text-white/80 text-lg">
-                    <span className="text-[#00ff00]">Token ID:</span> {selectedArtwork.tokenId}
+                    <span className="text-[#00ff00]">Token ID:</span>{' '}
+                    {selectedArtwork.tokenId}
                   </p>
                   <p className="text-white/80 text-lg">
-                    <span className="text-[#00ff00]">Contract:</span> {selectedArtwork.contract}
+                    <span className="text-[#00ff00]">Contract:</span>{' '}
+                    {selectedArtwork.contract}
                   </p>
                   <p className="text-white/80 text-lg">
-                    <span className="text-[#00ff00]">Status:</span> {selectedArtwork.status}
+                    <span className="text-[#00ff00]">Status:</span>{' '}
+                    {selectedArtwork.status}
                   </p>
                   <p className="text-white/80 text-lg">
-                    <span className="text-[#00ff00]">Data Size:</span> {selectedArtwork.dataSize}
+                    <span className="text-[#00ff00]">Data Size:</span>{' '}
+                    {selectedArtwork.dataSize}
                   </p>
                 </div>
-                <p className="text-white/80 text-lg">{selectedArtwork.description}</p>
+                <p className="text-white/80 text-lg">
+                  {selectedArtwork.description}
+                </p>
               </div>
             </div>
           </div>
         </div>
       )}
     </div>
-  )
-} 
+  );
+}

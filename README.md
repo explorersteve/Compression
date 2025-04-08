@@ -42,4 +42,4 @@ The website is deployed on Vercel.
 
 ## License
 
-MIT 
+MIT

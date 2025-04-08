@@ -6,5 +6,5 @@ export default function Loading() {
         <p className="text-graphite">Loading...</p>
       </div>
     </div>
-  )
-} 
+  );
+}
