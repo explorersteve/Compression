@@ -21,6 +21,9 @@ const pressStart2P = Press_Start_2P({
 export const metadata: Metadata = {
   title: 'Compressionism',
   description: 'Digital Art and Photography by Stephen Santoro',
+  icons: {
+    icon: '/favicon.ico'
+  }
 };
 
 export default function RootLayout({
