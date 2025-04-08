@@ -54,7 +54,7 @@ export default function RootLayout({
                     HOME
                   </Link>
                   <span className="text-white/50">|</span>
-                  <Link href="/index" className="text-white/90 hover:text-[#00ff00] transition-colors font-['VT323'] text-xl">
+                  <Link href="/gallery" className="text-white/90 hover:text-[#00ff00] transition-colors font-['VT323'] text-xl">
                     INDEX
                   </Link>
                   <span className="text-white/50">|</span>
