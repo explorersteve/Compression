@@ -72,6 +72,13 @@ export default function Gallery() {
             <h1 className="text-5xl md:text-7xl font-bold mb-4 text-[#00ff00] tracking-wider font-['Press_Start_2P']">
               INDEX
             </h1>
+            <div className="flex items-center justify-center gap-4 text-xl md:text-2xl text-white/90 font-['VT323']">
+              <span className="text-[#00ff00]">AVAILABLE</span>
+              <span className="text-white/50">|</span>
+              <span className="text-[#00ff00]">AUCTIONED</span>
+              <span className="text-white/50">|</span>
+              <span className="text-[#00ff00]">ARCHIVED</span>
+            </div>
           </div>
         </section>
 
@@ -88,42 +95,71 @@ export default function Gallery() {
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {nfts.map((nft) => {
-                  const metadata = nft.raw?.metadata as NFTMetadata | undefined;
-                  return (
-                    <div
-                      key={nft.tokenId}
-                      className="bg-[#0a0a0a] border border-[#00ff00]/20 p-4 rounded-lg hover:border-[#00ff00] transition-colors"
-                    >
-                      <div className="relative w-full h-[300px] mb-4">
-                        <Image
-                          src={metadata?.image || '/placeholder.png'}
-                          alt={metadata?.name || `NFT #${nft.tokenId}`}
-                          fill
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          className="object-contain rounded-lg"
-                          priority={false}
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <h3 className="text-[#00ff00] font-['Press_Start_2P'] text-sm">
-                          {metadata?.name || `NFT #${nft.tokenId}`}
-                        </h3>
-                        <p className="text-white/70 font-['VT323'] text-sm">
-                          Token ID: {nft.tokenId}
-                        </p>
-                        {metadata?.attributes?.map((attr: Attribute, index: number) => (
-                          <p key={index} className="text-white/70 font-['VT323'] text-sm">
-                            {attr.trait_type}: {attr.value}
+                {[...nfts]
+                  .sort((a, b) => parseInt(b.tokenId) - parseInt(a.tokenId))
+                  .map((nft) => {
+                    const metadata = nft.raw?.metadata as NFTMetadata | undefined;
+                    const isAvailable = nft.tokenId === "1";
+                    const isLive = nft.tokenId === "2";
+                    
+                    return (
+                      <div
+                        key={nft.tokenId}
+                        className="bg-[#0a0a0a] border border-[#00ff00]/20 p-4 rounded-lg hover:border-[#00ff00] transition-colors relative"
+                      >
+                        {/* Status Dots */}
+                        <div className="absolute top-2 left-2 flex gap-2 z-10">
+                          {isAvailable && (
+                            <div className="w-4 h-4 rounded-full bg-[#00ff00] animate-pulse" />
+                          )}
+                          {isLive && (
+                            <div className="w-4 h-4 rounded-full bg-red-500 animate-pulse" />
+                          )}
+                        </div>
+
+                        <div className="relative w-full h-[300px] mb-4">
+                          <Image
+                            src={metadata?.image || '/placeholder.png'}
+                            alt={metadata?.name || `NFT #${nft.tokenId}`}
+                            fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            className="object-contain rounded-lg"
+                            priority={false}
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <h3 className="text-[#00ff00] font-['Press_Start_2P'] text-sm">
+                            {metadata?.name || `NFT #${nft.tokenId}`}
+                          </h3>
+                          <p className="text-white/70 font-['VT323'] text-sm">
+                            Token ID: {nft.tokenId}
                           </p>
-                        ))}
+                          {metadata?.attributes?.map((attr: Attribute, index: number) => (
+                            <p key={index} className="text-white/70 font-['VT323'] text-sm">
+                              {attr.trait_type}: {attr.value}
+                            </p>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
               </div>
             )}
           </section>
+
+          {/* Status Key */}
+          <div className="fixed right-8 top-1/2 transform -translate-y-1/2 bg-[#0a0a0a] border border-[#00ff00]/20 p-4 rounded-lg">
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="w-4 h-4 rounded-full bg-[#00ff00]" />
+                <span className="text-[#00ff00] font-['VT323']">Available</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-4 h-4 rounded-full bg-red-500" />
+                <span className="text-[#00ff00] font-['VT323']">Auction Started</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
